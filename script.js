@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let balance = 100;
   let currentBet = 0;
 
+  // Sound effects
+  const buttonClickSound = new Audio('sounds/button-click.mp3');
+  const winSound = new Audio('sounds/win.mp3');
+  const loseSound = new Audio('sounds/lose.mp3');
+
   // Initialize game
   function initializeGame() {
     deck = createDeck();
@@ -101,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('result').textContent = message;
     if (playerWins) {
       balance += currentBet * 2;
+      winSound.play(); // Play win sound
+    } else {
+      loseSound.play(); // Play lose sound
     }
     currentBet = 0;
     updateBalanceUI();
@@ -108,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Place bet
   document.getElementById('place-bet').addEventListener('click', () => {
+    buttonClickSound.play(); // Play button click sound
     const betInput = document.getElementById('bet-amount');
     const betValue = parseInt(betInput.value);
     if (betValue > 0 && betValue <= balance) {
@@ -123,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Player actions
   document.getElementById('hit').addEventListener('click', () => {
+    buttonClickSound.play(); // Play button click sound
     if (currentBet === 0) {
       document.getElementById('result').textContent = 'You must place a bet first!';
       return;
@@ -135,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('stand').addEventListener('click', () => {
+    buttonClickSound.play(); // Play button click sound
     if (currentBet === 0) {
       document.getElementById('result').textContent = 'You must place a bet first!';
       return;
@@ -154,7 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('restart').addEventListener('click', initializeGame);
+  document.getElementById('restart').addEventListener('click', () => {
+    buttonClickSound.play(); // Play button click sound
+    initializeGame();
+  });
 
   // Start game
   initializeGame();
