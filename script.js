@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let dealerScore = 0;
   let balance = 100;
   let currentBet = 0;
+  let gameOver = false; // Flag to track if the game is over
 
   // Sound effects
   const buttonClickSound = new Audio('sounds/button-click.mp3');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dealerCards = [];
     playerScore = 0;
     dealerScore = 0;
+    gameOver = false; // Reset gameOver flag
     document.getElementById('player-cards').innerHTML = '';
     document.getElementById('dealer-cards').innerHTML = '';
     document.getElementById('player-score').textContent = 'Score: 0';
@@ -104,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update result and handle bets
   function updateResult(message, playerWins) {
     document.getElementById('result').textContent = message;
+    gameOver = true; // Set gameOver flag to true
     if (playerWins) {
       balance += currentBet * 2;
       winSound.play(); // Play win sound
@@ -116,6 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Place bet
   document.getElementById('place-bet').addEventListener('click', () => {
+    if (gameOver) {
+      document.getElementById('result').textContent = 'Game over! Please restart.';
+      return;
+    }
     buttonClickSound.play(); // Play button click sound
     const betInput = document.getElementById('bet-amount');
     const betValue = parseInt(betInput.value);
@@ -132,6 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Player actions
   document.getElementById('hit').addEventListener('click', () => {
+    if (gameOver) {
+      document.getElementById('result').textContent = 'Game over! Please restart.';
+      return;
+    }
     buttonClickSound.play(); // Play button click sound
     if (currentBet === 0) {
       document.getElementById('result').textContent = 'You must place a bet first!';
@@ -145,6 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('stand').addEventListener('click', () => {
+    if (gameOver) {
+      document.getElementById('result').textContent = 'Game over! Please restart.';
+      return;
+    }
     buttonClickSound.play(); // Play button click sound
     if (currentBet === 0) {
       document.getElementById('result').textContent = 'You must place a bet first!';
