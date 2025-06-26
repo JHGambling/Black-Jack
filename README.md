@@ -1,2 +1,3 @@
-# Roulette
-This is the the Roulette-Game of JHGambling.
+# Black-Jack
+This is the Black Jack game for JHGambling.
+
