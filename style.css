@@ -92,3 +92,11 @@ body {
     font-weight: bold;
     color: #ffd700;
   }
+
+  .logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px; /* Adjust width as needed */
+    height: auto;
+  }
