@@ -5,7 +5,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const wsUrl = urlParams.get("wsUrl") || "ws://localhost:9000";
 const token = urlParams.get("token") || "dev";
 const session = parseInt(urlParams.get("session") || "0");
-const useSDK = urlParams.get("sdk") !== "false";
+const useSDK = (urlParams.get("sdk") || "").length > 0;
 
 const client = useSDK
     ? new CasinoClient(wsUrl, {
